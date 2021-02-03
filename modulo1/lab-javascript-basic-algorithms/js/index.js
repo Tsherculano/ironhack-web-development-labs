@@ -31,29 +31,51 @@ for (let i = 0; i < hacker1.length; i += 1) {
   
 }
 
-// Bonus 1:
+// Bonus 1
 
-const sentence = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt mi non felis eleifend, quis interdum enim vulputate. Curabitur turpis nunc, fermentum a nisi in, imperdiet luctus felis. Mauris eget feugiat odio. Etiam scelerisque elit vitae odio efficitur, at tempor tellus hendrerit. Praesent metus urna, scelerisque non posuere ut, suscipit ut arcu. Ut vel consectetur ipsum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Proin sed nibh metus. Proin ex nibh, ultricies non elit vitae, tempus varius sem. Sed lobortis placerat semper. Cras diam dolor, fringilla vel est ac, pellentesque tristique lectus. Nullam efficitur magna id diam bibendum tincidunt. Sed pretium lorem nec dui tincidunt, sed mattis mi euismod. Aliquam in congue nisi. Integer orci sapien, eleifend et tempor quis, feugiat sit amet mi. Suspendisse convallis, felis vitae ullamcorper egestas, ipsum velit venenatis elit, at hendrerit ligula velit sit amet lectus.
-Vivamus sagittis ante orci, ut molestie massa sodales non. Praesent ac ex at eros semper scelerisque. Phasellus nec quam dapibus, viverra dui eu, porta est. Suspendisse nec condimentum nisl, at tincidunt metus. In auctor nisl eget nisi ultricies dignissim. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum congue nisi eget hendrerit egestas.
-Suspendisse at purus at eros dapibus varius vel in magna. Morbi non dictum purus, in posuere erat. Duis vel mauris blandit, euismod augue id, lobortis neque. Nulla sodales, justo ut sagittis varius, diam quam consequat ipsum, non tincidunt libero dolor at dui. Aliquam tristique ipsum sem, in euismod sem scelerisque pharetra. Praesent sodales eu risus at vestibulum. Vivamus diam ante, rutrum eget condimentum nec, pharetra a dui. Mauris ac mauris pellentesque, finibus velit vitae, pulvinar libero. Nunc massa arcu, vulputate vel dignissim non, tristique eu urna. Duis eu congue mauris. Nunc tincidunt dolor dolor, et congue risus congue non. Mauris sed mi mauris. Vivamus egestas blandit fermentum. Ut at lacus in massa pretium dictum. Integer nisl ex, accumsan vel lobortis et, egestas et sem.`
+const phrase = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In blandit blandit nisl eu molestie. Nam nibh quam, aliquam sed fermentum ac, placerat quis tortor. Integer et mi. Nullam nisl tellus, ullamcorper eleifend ipsum ut, mollis porttitor ligula. Maecenas in efficitur tellus, in rhoncus erat. Vestibulum arcu velit, bibendum eget mauris vitae, tristique facilisis arcu. Sed vestibulum rhoncus magna, sed congue ipsum luctus eget. Aliquam ullamcorper, elit at consequat congue, elit mauris rhoncus purus, non lacinia massa tellus eu neque. Curabitur turpis nisi, dictum et tortor ac, dapibus interdum turpis.
 
-let wordsCount = 1;
+Aliquam vel metus porta, semper nulla vitae, ullamcorper dolor. Suspendisse erat diam, viverra ac felis in, ultricies sodales erat. Integer commodo rhoncus pretium. Morbi sollicitudin eget ipsum in ultricies. Fusce arcu dolor, vestibulum ut nunc eu, placerat dictum nunc. Vivamus consequat interdum iaculis. Suspendisse vitae arcu rhoncus, rutrum risus sit amet, tristique tellus. Sed eu sodales purus. Donec rhoncus, purus eget imperdiet pulvinar, nulla turpis accumsan est, sed facilisis sem lorem quis magna. Duis id imperdiet sapien.
 
-for (let i = 0; i < sentence.length; i += 1) {
-  if(sentence[i] === ' ') {
-    wordsCount += 1;
+Maecenas ipsum leo, consectetur ut risus et, iaculis ullamcorper tortor. Aliquam erat volutpat. Praesent vel lacinia nisl. Proin viverra congue lorem in laoreet. Quisque interdum, mauris vitae bibendum luctus, enim metus finibus est, vitae hendrerit ex ex ut nulla. Donec ultrices efficitur varius. Cras suscipit neque magna, ac ornare diam malesuada quis. Ut massa mauris, mollis a imperdiet et, consequat ut orci. Aenean purus turpis, varius nec interdum sit amet, iaculis ut tellus. Phasellus magna est, convallis ut tristique lacinia, convallis quis tortor. Sed vel vehicula urna. Vivamus augue dolor, efficitur ac nulla nec, aliquam porttitor massa.`;
+
+// result --- 264
+
+let result = phrase.split(' ').length; // 262
+
+const regularExpressionToFindLineBreaks = /[\n]{1,}/g
+const backSpacesFound = phrase.match(regularExpressionToFindLineBreaks) !== null ? phrase.match(regularExpressionToFindLineBreaks).length : 0;
+result += backSpacesFound;
+
+// for (let i = 0; i < phrase.length; i += 1) {
+//   if (phrase[i - 1] !== '\n' && (phrase[i] === '\n' || (phrase[i] === '\n' && phrase[i + 1] === '\n'))) {
+//     result += 1;
+//   }
+// }
+
+let countEtWords = 0;
+
+for (let i = 0; i < phrase.length; i += 1) {
+  
+  if (phrase.slice(i, i + 2) === 'et') {
+
+    const characterBeforeIsALetter = (phrase.charCodeAt(i - 1) >= 65 && phrase.charCodeAt(i - 1) <= 90) || (phrase.charCodeAt(i - 1) >= 97 && phrase.charCodeAt(i - 1) <= 122);
+
+    const characterAfterIsALetter = (phrase.charCodeAt(i + 2) >= 65 && phrase.charCodeAt(i + 2) <= 90) || (phrase.charCodeAt(i + 2) >= 97 && phrase.charCodeAt(i + 2) <= 122);
+
+    
+    if (!characterBeforeIsALetter && !characterAfterIsALetter) {
+      countEtWords += 1;
+    }
+
   }
+
 }
 
-const wordsQuantity = sentence.split(' ').length;
-
-console.log(wordsCount)
-console.log(wordsQuantity);
+console.log(countEtWords)
 
 // Bonus 2:
-
 const phraseToCheck = 'akldsjdm u89sudoasdumas09odia90id9a0i()U(*&)(ID()sadjmasdi  adosi,aspodi';
-
 // Converter as letras da string para caixa baixa - OK
 // Fazer um loop na string resultante - OK
 // Dentro do loop, fazer a verificação do intervalo numérico (97 até 122) referente a cada caractere usando o charCodeAt() - OK
@@ -62,11 +84,11 @@ const phraseToCheck = 'akldsjdm u89sudoasdumas09odia90id9a0i()U(*&)(ID()sadjmasd
 // Checar se as duas strings são iguais e printar no console - OK
 
 const lowerCaseString = phraseToCheck.toLowerCase();
+
 let onlyLettersString = '';
 
 for (let i = 0; i < lowerCaseString.length; i += 1) {
   const charCode = lowerCaseString.charCodeAt(i)
-
   if (charCode >= 97 && charCode <= 122) {
     onlyLettersString += lowerCaseString[i];
   }
